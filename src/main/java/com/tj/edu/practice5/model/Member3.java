@@ -1,16 +1,16 @@
 package com.tj.edu.practice5.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "member3")
 public class Member3 {
     @NonNull
     private String name;
@@ -19,4 +19,6 @@ public class Member3 {
     private String id;
     private String nickname;
     private String email;
+    @Transient
+    private LocalDateTime createAt;
 }

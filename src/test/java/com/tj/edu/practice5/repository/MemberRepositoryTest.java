@@ -1,6 +1,8 @@
 package com.tj.edu.practice5.repository;
 
 import com.tj.edu.practice5.model.Member;
+import com.tj.edu.practice5.model.Member3;
+import com.tj.edu.practice5.model.enums.Nation;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import java.util.List;
 class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private Member3Repository member3Repository;
 
     @Test
     void crud() {
@@ -39,7 +43,13 @@ class MemberRepositoryTest {
 
         // update문
         System.out.println("update문 --------------------------------------------------------");
-        Member member1 = new Member(1L, "홍길동", "이메일 주소", LocalDateTime.now(), LocalDateTime.now());
+        Member member1 = Member.builder()
+                .id(1L)
+                .name("홍길동")
+                .email("이메일 주소")
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
+                .build();
         memberRepository.save(member1);     // 1번을 가진 id가 있다면 update, 없으면 create문 발생
         List<Member> memberList3 = memberRepository.findAll();
         memberList3.forEach(System.out::println);
@@ -74,12 +84,12 @@ class MemberRepositoryTest {
                 .updateAt(null)
                 .build();
         memberRepository.save(member3);
-      // select by 2가지 방법 있음.
+        // select by 2가지 방법 있음.
 //        Optional<Member> memberOptional = memberRepository.findById(12L);
 ////        memberOptional.orElseThrow(RuntimeException::new);
 //        System.out.println(memberOptional);
         Member member4 = memberRepository.findById(1L).orElse(null);
-        if(member4 != null) {
+        if (member4 != null) {
             System.out.println(member4);
         }
         //2명 정보 동시에 불러오기
@@ -91,15 +101,15 @@ class MemberRepositoryTest {
 
         //select exist함수(값이 있는지 없는지 체크해주는 함수)
         boolean isFiveNumberMember = memberRepository.existsById(5L);
-        if(isFiveNumberMember)
+        if (isFiveNumberMember)
             System.out.println("5번 회원 존재");
 
         boolean isNinetyNumberMember = memberRepository.existsById(90L);
-        if(isNinetyNumberMember)
+        if (isNinetyNumberMember)
             System.out.println("90번 회원 존재");
         //select page함수
         //자주쓰는 방법은 아닌데. 간단하게 알아볼때 씀.
-        Page<Member> membersPage =  memberRepository.findAll(PageRequest.of(0, 4));
+        Page<Member> membersPage = memberRepository.findAll(PageRequest.of(0, 4));
         System.out.println("page: " + membersPage);
         System.out.println("totalElements: " + membersPage.getTotalElements());
         System.out.println("totalPage: " + membersPage.getTotalPages());
@@ -118,24 +128,85 @@ class MemberRepositoryTest {
         //startsWith() : 시작하는거
 
         Example<Member> memberExample = Example.of(
-                                        Member.builder()
-                                                .name("박남순")
+                Member.builder()
+                        .name("박남순")
 //                                                .email("thejoeun.com")
-                                                .build(),
-                                        matcher
+                        .build(),
+                matcher
         );
 
         memberRepository.findAll(memberExample).forEach(System.out::println);
 
         Example<Member> memberExample2 = Example.of(
-                                                    Member.builder()
-                                                            .email("mars@thejoeun.com")
-                                                            .build()
+                Member.builder()
+                        .email("mars@thejoeun.com")
+                        .build()
 
         );
         memberRepository.findAll(memberExample2).forEach(System.out::println);
+        }
+        @Test
+        void crud3(){
+            Member member = Member.builder()
+                    .id(11L)
+                    .name("최우제")
+                    .male(false)
+                    .email("zeus01@t1esports.com")
+                    .createAt(LocalDateTime.now())
+                    .build();
+            //insert
+            member = memberRepository.save(member);
+            //update
+            member.setName("작번");
+            memberRepository.save(member);
+
+            Member member1 = Member.builder()
+                    .id(12L)
+                    .name("류민석")
+                    .male(false)
+                    .email("keria@t1esports.com")
+                    .createAt(LocalDateTime.now())
+                    .build();
+            member1 = memberRepository.save(member1);
+            //updateable 먹여서 test2는 변경안됨.
+            member1.setName("막내아님");
+            member1.setUpdateAt(LocalDateTime.now());
+            member1.setTest2(1234);
+            memberRepository.saveAndFlush(member1);
     }
+    @Test
+    void crud4(){
+        Member3 member = Member3.builder()
+                .id("naNa")
+                .name("나나")
+                .nickname("나*2")
+                .email("nana123@gmail.com")
+                .createAt(LocalDateTime.now())
+                .build();
+        member = member3Repository.save(member);
 
+    }
+    @Test
+    void JpaEnumTest(){
+        Member member1 = Member.builder()
+                .id(12L)
+                .name("류민석")
+                .male(false)
+                .email("keria@t1esports.com")
+                .createAt(LocalDateTime.now())
+                .nation(Nation.KOREA)
+                .build();
+        member1 = memberRepository.save(member1);
 
+        Member member2 = Member.builder()
+                .id(13L)
+                .name("문현준")
+                .male(false)
+                .email("owner@t1esports.com")
+                .createAt(LocalDateTime.now())
+                .nation(Nation.기타)
+                .build();
+        member2 = memberRepository.save(member2);
+    }
 
 }
