@@ -44,8 +44,8 @@ public class JpaQueryMethodTest {
 //        List<Member> memberKang = memberRepository.findByName("강감찬");
 
 
-        Optional<Member> memberOptional1 = memberRepository.findByCreateAt(LocalDateTime.MAX);
-        System.out.println(memberOptional1);
+//        Optional<Member> memberOptional1 = memberRepository.findByCreateAt(LocalDateTime.MAX);
+//        System.out.println(memberOptional1);
 
         memberRepository.findFirst1ByEmail("namsun@gmail.com").forEach(System.out::println);
         memberRepository.findFirst2ByEmail("namsun@gmail.com").forEach(System.out::println);

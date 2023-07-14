@@ -34,19 +34,20 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Set<Member> readByEmail(String email);
     Page<Member> findByEmailLike(String emailLike, PageRequest pageable);
 
-    Optional<Member> findByCreateAt(LocalDateTime localDateTime);
+    Member findByEmail(String email);
+//    Optional<Member> findByCreateAt(LocalDateTime localDateTime);
 
     List<Member> findFirst1ByEmail(String email);
     List<Member> findFirst2ByEmail(String email);
     List<Member> findTop2ByEmail(String email);
     List<Member> findDistinctByEmail(String email);
     //create 후의 정보 불러오기
-    List<Member> findByCreateAtAfter(LocalDateTime yesterday);
-    List<Member> findByCreateAtGreaterThan(LocalDateTime yesterday);
-    List<Member> findByCreateAtGreaterThanEqual(LocalDateTime yesterday);
+//    List<Member> findByCreateAtAfter(LocalDateTime yesterday);
+//    List<Member> findByCreateAtGreaterThan(LocalDateTime yesterday);
+//    List<Member> findByCreateAtGreaterThanEqual(LocalDateTime yesterday);
     List<Member> findByIdGreaterThanEqual(Long id);
     List<Member> findByIdGreaterThan(Long id);
-    List<Member> findByCreateAtBetween(LocalDateTime yesterday, LocalDateTime tomorrow);
+//    List<Member> findByCreateAtBetween(LocalDateTime yesterday, LocalDateTime tomorrow);
 
     List<Member> findByEmailIsNotNull();
     List<Member> findByNameLike(String likeName);
@@ -57,7 +58,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNameEndingWith(String name);
     List<Member> findByNameOrderByEmail(String name);
     List<Member> findByEmailLikeOrderByNameDesc(String likeEmail);
-    List<Member> findByAddressIsEmpty();
+//    List<Member> findByAddressIsEmpty();
     List<Member> findByMaleIsFalse();
 
 

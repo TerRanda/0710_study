@@ -3,23 +3,23 @@ package com.tj.edu.practice5.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@EntityListeners(value = {AuditingEntityListener.class})
-@EqualsAndHashCode(callSuper = false)
-public class Address extends BaseEntity{
+//@EntityListeners(value = {AuditingEntityListener.class})
+public class BookReviewInfo extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String zipcode;
-//    @OneToOne
-//    private Member member;
 
+    @OneToOne(optional = false)
+//    private Long bookId;
+    private Book book;
+
+    private float avgReviewScore;
+    private int reviewCount;
 }
