@@ -18,10 +18,10 @@
         <input type="hidden" id="article-id" th:value="${article.id}">
 
         <header class="mb-4">
-          <input type="text" class="form-control" placeholder="제목 입력해주세요" id="title" th:value="${article.title}">
+          <input type="text" class="form-control" placeholder="제목 입력해주세요" id="title1" th:value="${article.title}">
         </header>
         <section class="mb-5">
-          <textarea class="form-control h-25" rows="10" placeholder="내용 입력해주세요" id="content" th:text="${article.content}"></textarea>
+          <textarea class="form-control h-25" rows="10" placeholder="내용 입력해주세요" id="content1" th:text="${article.content}"></textarea>
         </section>
         <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
         <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>

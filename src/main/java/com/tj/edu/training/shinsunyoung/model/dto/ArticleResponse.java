@@ -3,6 +3,7 @@ package com.tj.edu.training.shinsunyoung.model.dto;
 import com.tj.edu.training.shinsunyoung.model.Article;
 import lombok.Data;
 
+
 @Data
 public class ArticleResponse {
     private final String title;

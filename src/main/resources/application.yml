@@ -6,6 +6,19 @@ application:
   title: thejoeun company
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 888436277772-p3nm5cgiuvefjvorn14n0rlp9dvdjqen.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+    user:
+      name: user
+      password: 1234
   thymeleaf:
     cache: false
   sql:
@@ -78,4 +91,7 @@ logging:
 #          decriptor:
 #            sql: trace
 ##    root: trace
+jwt:
+  issuer: jwt1@abc.com
+  secret_key: 1234
 

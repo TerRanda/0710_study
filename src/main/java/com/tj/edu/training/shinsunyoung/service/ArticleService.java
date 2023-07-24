@@ -15,8 +15,8 @@ import java.util.List;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 //블로그 글 저장
-    public Article save(AddArticleRequest addArticleRequest) {
-        return articleRepository.save(addArticleRequest.toEntity());
+    public Article save(AddArticleRequest addArticleRequest, String author) {
+        return articleRepository.save(addArticleRequest.toEntity(author));
     }
 //블로그 글 목록 불러오기
     public List<Article> getArticleAll() {
